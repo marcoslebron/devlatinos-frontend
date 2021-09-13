@@ -1,5 +1,8 @@
 <template>
   <div class="home">
+    <transition name="fade">
+      <p v-if="show">hola</p>
+    </transition>
     <div
       class="
         py-8
@@ -37,6 +40,7 @@
             focus:ring-purple-600
             focus:ring-offset-2
           "
+          @click="show = !show"
         >
           Message
         </button>
@@ -47,12 +51,20 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
 @Component({
-  components: {
-    HelloWorld,
-  },
+  components: {},
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  show = false;
+}
 </script>
+<style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>
