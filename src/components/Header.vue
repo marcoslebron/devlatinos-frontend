@@ -1,18 +1,15 @@
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import menuIcon from "~/assets/menu.svg";
+import { Options, Vue } from "vue-class-component";
 
-@Component({
-  components: {
-    menuIcon,
-  },
-})
+@Options({})
 export default class Header extends Vue {
   mobile = null;
-  mobileNav = null;
+  mobileNav = false;
   windownWidth = null;
 
-  toggleMobileNav(): void {}
+  toggleMobileNav(): void {
+    this.mobileNav = !this.mobileNav;
+  }
 }
 </script>
 
@@ -27,10 +24,22 @@ header
         li Blogs
         li Crea un Articulo
         li Iniciar/Registrarse
-  menuIcon.menu-icon(@click="toggleMobileNav")
+  img.menu-icon(src="../assets/menu.svg" @click="toggleMobileNav" )
   transition(name="fade")
-    ul.mobile-menu
-        
+    ul.mobile-menu(v-show="mobileNav")
+      li Home
+      li Blogs
+      li Crea un Articulo
+      li Iniciar/Registrarse
 </template>
 
-<style scoped></style>
+<style scoped>
+.menu-icon {
+  cursor: pointer;
+  position: absolute;
+  width: auto;
+  height: 25px;
+  top: 32px;
+  right: 25px;
+}
+</style>
