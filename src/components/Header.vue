@@ -5,9 +5,7 @@ export default defineComponent({
   name: "Header",
   setup() {
     const state = reactive({
-      mobile: null,
       mobileNav: false,
-      windownWidth: null,
     });
 
     const toggleMobileNav = (): void => {
@@ -24,19 +22,19 @@ header
   nav.container.mx-auto.flex.flex-row.justify-between.py-4
     .brand
       h2 Dev Latinos
-    .nav-links.py-2
+    .nav-links.py-2(class="invisible md:visible")
       ul.flex.justify-between.space-x-4
         router-link(to="/") Home
-        router-link(to="/blogs") Blogs
-        router-link(to="/create") Crea un Articulo
-        router-link(to="login") Iniciar/Registrarse
-  img.menu-icon(src="../assets/menu.svg" @click="toggleMobileNav" )
+        router-link(to="/") Blogs
+        router-link(to="/") Crea un Articulo
+        router-link(to="/") Iniciar/Registrarse
+  img.menu-icon(class="md:invisible" src="../assets/menu.svg" @click="toggleMobileNav" )
   transition(name="fade")
     ul.mobile-nav(v-show="mobileNav")
       router-link(to="/" class="link") Home
-      router-link(to="/blogs" class="link") Blogs
-      router-link(to="create" class="link") Crea un Articulo
-      router-link(to="login" class="link") Iniciar/Registrarse
+      router-link(to="/" class="link") Blogs
+      router-link(to="/" class="link") Crea un Articulo
+      router-link(to="/" class="link") Iniciar/Registrarse
 </template>
 
 <style lang="scss" scoped>
