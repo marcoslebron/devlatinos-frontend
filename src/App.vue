@@ -1,10 +1,8 @@
-<template>
-  <wrappper class="main">
-    <Header></Header>
-    <main>
-      <router-view></router-view>
-    </main>
-  </wrappper>
+<template lang="pug">
+.main
+  Header
+  main
+    router-view
 </template>
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
