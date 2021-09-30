@@ -48,7 +48,7 @@ export default defineComponent({
   form.login
     p.login-register
       | Don't have an account?
-      router-link.router-link(:to="{ name: '' }") Register
+      router-link.router-link(:to="{ name: 'register' }") Register
     h2 Login to FireBlogs
     .inputs
       .input
