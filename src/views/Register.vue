@@ -1,8 +1,9 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue";
-import firebase from "firebase/app";
-import db from "../../firebase/firebaseinit";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import firebaseApp from "../../firebase/firebaseinit";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+const db = getFirestore(firebaseApp);
 
 export default defineComponent({
   setup() {
@@ -27,7 +28,7 @@ export default defineComponent({
         firstName: "",
         lastName: "",
       },
-      error: null,
+      error: false,
       errorMsg: "",
     };
   },
@@ -36,13 +37,14 @@ export default defineComponent({
       if (this.form.username !== "") {
         const { lastName, firstName, username } = this.$data.form;
         const firebaseAuth = await getAuth();
-        const createuser = await firebaseAuth.createUserWithEmailAndPassword(
+        const createuser = await createUserWithEmailAndPassword(
+          firebaseAuth,
           this.form.email,
           this.form.password
         );
         const result = await createuser;
-        const database = db.collection("users").doc(result.user.uid);
-        await database.set({
+        const user = doc(db, "users", result.user.uid);
+        await setDoc(user, {
           lastName,
           firstName,
           username,
