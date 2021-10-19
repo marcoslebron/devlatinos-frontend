@@ -6,7 +6,7 @@ export default defineComponent({
   props: {
     post: { type: Object as PropType<PostShow>, required: true },
   },
-  setup() {},
+  // setup() {},
 });
 </script>
 <template lang="pug">
