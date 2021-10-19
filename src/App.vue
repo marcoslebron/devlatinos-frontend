@@ -1,15 +1,14 @@
 <template lang="pug">
-  #app
-    Header
-    main
-      router-view
-    //- Footer
+.main
+  Header
+  main
+    router-view
 </template>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Options, Vue } from "vue-class-component";
 import Header from "@/components/Header.vue";
 
-@Component({
+@Options({
   components: {
     Header,
   },
