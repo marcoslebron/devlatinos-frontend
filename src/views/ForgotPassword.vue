@@ -1,9 +1,5 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from "vue";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import firebaseApp from "../../firebase/firebaseinit";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-const db = getFirestore(firebaseApp);
 
 export default defineComponent({
   setup() {
@@ -21,38 +17,27 @@ export default defineComponent({
   },
   data() {
     return {
-      form: {
-        email: "",
-        password: "",
-        username: "",
-        firstName: "",
-        lastName: "",
-      },
-      error: false,
+      email: "",
+      password: "",
+      error: null,
       errorMsg: "",
     };
   },
   methods: {
-    async register() {
-      if (this.form.username !== "") {
-        const { lastName, firstName, username } = this.$data.form;
-        const firebaseAuth = await getAuth();
-        const createuser = await createUserWithEmailAndPassword(
-          firebaseAuth,
-          this.form.email,
-          this.form.password
-        );
-        const result = await createuser;
-        const user = doc(db, "users", result.user.uid);
-        await setDoc(user, {
-          lastName,
-          firstName,
-          username,
-        });
-        return;
-      }
-      this.error = true;
-      this.errorMsg = "Please fill all the fields";
+    signIn() {
+      // firebase
+      //   .auth()
+      //   .signInWithEmailAndPassword(this.email, this.password)
+      //   .then(() => {
+      //     this.$router.push({ name: "Home" });
+      //     this.error = false;
+      //     this.errorMsg = "";
+      //     console.log(firebase.auth().currentUser.uid);
+      //   })
+      //   .catch((err) => {
+      //     this.error = true;
+      //     this.errorMsg = err.message;
+      //   });
     },
   },
 });
@@ -61,21 +46,15 @@ export default defineComponent({
 <template lang="pug">
 .form-wrap
   form.login
-    h2 Crea tu cuenta en devLatinos
+    h2 Reset Password
+    p.login-register
+      | Forgot your password? Enter your email to reset it.
     .inputs
-      .input
-        input(type='text' placeholder='Name' v-model='name')
-      .input
-        input(type='text' placeholder='Username' v-model='username')
       .input
         input(type='text' placeholder='Email' v-model='email')
         email.icon
-      .input
-        input(type='password' placeholder='Password' v-model='password')
-        password.icon
-      .error(v-show='error') {{ errorMsg }}
-    router-link.forgot-password(:to="{ name: '' }") Login
-    button(@click.prevent='signIn') Sign Up
+      .error(v-show='error') {{ this.errorMsg }}
+    button(@click.prevent='signIn') Reset
     .angle
   .background
 
